@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HiCSAop</RootNamespace>
     <AssemblyName>HiCSAop</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,7 +44,6 @@
     <Compile Include="ProxyAttribute\Impl\InterceptProxy.cs" />
     <Compile Include="ProxyAttribute\MethInvokBaseAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\DynamicProxy\Impl\HiTraceIntercept.cs" />
     <Compile Include="Test\DynamicProxy\UnitTest_DynamicProxy.cs" />
     <Compile Include="Test\ProxyAttribute\Impl\MethodInvokAttribute.cs" />
     <Compile Include="Test\ProxyAttribute\UnitTest_AOP.cs" />

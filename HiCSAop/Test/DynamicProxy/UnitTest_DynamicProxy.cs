@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 ﻿using Castle.DynamicProxy;
-
-using HiCSAop.Test.DynamicProxy.Impl;
 
 namespace HiCSAop.Test.DynamicProxy
 {
     [TestClass]
     public class UnitTest_DynamicProxy
     {
-        static HiTraceIntercept interceptor = new HiTraceIntercept();
+        static HiBaseInterceptor interceptor = new HiBaseInterceptor();
 
         private static T New<T>() where T: class, new()
         {
             return interceptor.New<T>();
+        }
+
+        public UnitTest_DynamicProxy()
+        {
+            interceptor.handler = OnMethod;
         }
 
         /// <summary>
@@ -40,6 +44,28 @@ namespace HiCSAop.Test.DynamicProxy
             AOPTest2 test2 = New<AOPTest2>(); 
             test2.AOP_Test2();
             test2.AOP_Test3(5);
+        }
+
+
+        private static void OnMethod(IInvocation invoc, Action<IInvocation> action)
+        {
+            Trace.WriteLine(string.Format("method {0}:{1} start", invoc.Method.ReflectedType.Name, invoc.Method.Name));
+            if (invoc.Arguments != null && invoc.Arguments.Length > 0)
+            {
+                //foreach (object obj in msg.Args)
+                for (int i = 0; i < invoc.Arguments.Length; i++)
+                {
+                    string nameStr = invoc.Method.GetParameters()[i].Name;
+                    if (nameStr == null)
+                    {
+                        nameStr = "";
+                    }
+                    Object obj = invoc.GetArgumentValue(i);
+                    Trace.WriteLine(nameStr + ":" + ((obj == null || obj is DBNull) ? "" : Convert.ToString(obj)));
+                }
+            }
+            action(invoc);
+            Trace.WriteLine(string.Format("method {0}:{1} finish", invoc.Method.ReflectedType.Name, invoc.Method.Name));
         }
     }
 
