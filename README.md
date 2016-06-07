@@ -1,0 +1,3 @@
+# HiCSAop
+C#对AOP支持不是很好,使用ProxyAttribute,则要求类必须继承自ContextBoundObject,而且只能添加到类上,很不方便,且网上很多的AOP实现起来很麻烦,所以实现该类库,该类库使用VS2013开发,
+除了提供ProxyAttribute实现外,还提供基于Castle DynamicProxy的实现.
